@@ -19,7 +19,6 @@ public class MenuItemRestController {
         menuItemService = theMenuItemService;
     }
 
-
     // expose api/menuitems and get all menu items
     @GetMapping("/menuitems")
     public List<MenuItem> findAll(){
@@ -30,6 +29,7 @@ public class MenuItemRestController {
     public MenuItem getItem(@PathVariable int itemId){
 
         MenuItem item  = menuItemService.findById(itemId);
+
 
         if(item == null){
             throw new RuntimeException("Item with the id " + itemId + " not found");

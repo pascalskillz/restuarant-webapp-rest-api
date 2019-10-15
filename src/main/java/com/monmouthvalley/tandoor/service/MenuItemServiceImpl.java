@@ -38,7 +38,7 @@ public class MenuItemServiceImpl implements MenuItemService {
             item = result.get();
         }
         else {
-            //employee not found
+            //meunItem not found
             throw new RuntimeException("No menu item with id " + id);
 
         }

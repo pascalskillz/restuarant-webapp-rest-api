@@ -36,6 +36,9 @@ public class MenuItem {
     @Column(name = "image_url")
     private String imageUrl;
 
+//    @OneToMany(mappedBy)
+//    private similarItem similarItem();
+
 
     public  MenuItem(){
 

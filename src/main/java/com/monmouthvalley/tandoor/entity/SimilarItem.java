@@ -1,32 +1,40 @@
 package com.monmouthvalley.tandoor.entity;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-public class similarItem {
+@Entity
+@Table(name = "similar_menu_item")
+public class SimilarItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
-    @Column(name = "item_name")
+    @Column(name = "similar_menu_item_id")
+    private int similarMenuItemId;
+
+
+    /*@Column(name = "item_name")
     private String itemName;
 
     @Column(name = "item_price")
     private String itemPrice;
+*/
 
-
-    public similarItem(){
+    public SimilarItem(){
 
     }
 
-    public similarItem(String itemName, String itemPrice) {
+    public SimilarItem(int similarMenuItemId){
+
+        this.similarMenuItemId = similarMenuItemId;
+    }
+
+    /*public SimilarItem(String itemName, String itemPrice) {
         this.itemName = itemName;
         this.itemPrice = itemPrice;
-    }
+    }*/
 
     public int getId() {
         return id;
@@ -36,7 +44,15 @@ public class similarItem {
         this.id = id;
     }
 
-    public String getItemName() {
+    public int getSimilarMenuItemId() {
+        return similarMenuItemId;
+    }
+
+    public void setSimilarMenuItemId(int similarMenuItemId) {
+        this.similarMenuItemId = similarMenuItemId;
+    }
+
+    /* public String getItemName() {
         return itemName;
     }
 
@@ -50,5 +66,5 @@ public class similarItem {
 
     public void setItemPrice(String itemPrice) {
         this.itemPrice = itemPrice;
-    }
+    }*/
 }

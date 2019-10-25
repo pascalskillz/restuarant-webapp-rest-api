@@ -13,6 +13,7 @@ public class Reservation {
     private int id;
 
     @Column(name = "res_date")
+    @Temporal(TemporalType.DATE)
     private Date resDate;
 
     @Column(name = "res_amount")

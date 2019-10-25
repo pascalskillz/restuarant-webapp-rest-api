@@ -1,7 +1,11 @@
 package com.monmouthvalley.tandoor.entity;
 
 
+import com.monmouthvalley.tandoor.utils.Category;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "menuItem")
@@ -36,8 +40,13 @@ public class MenuItem {
     @Column(name = "image_url")
     private String imageUrl;
 
-//    @OneToMany(mappedBy)
-//    private similarItem similarItem();
+    //setting up a unidirectional relationship with similarItems
+    @OneToMany( fetch = FetchType.LAZY, cascade = {CascadeType.DETACH,
+                            CascadeType.MERGE,
+                            CascadeType.PERSIST ,
+                            CascadeType.REFRESH})
+    @JoinColumn(name = "similar_menu_item_id")
+    private List<SimilarItem> similarItems;
 
 
     public  MenuItem(){
@@ -136,6 +145,21 @@ public class MenuItem {
         this.imageUrl = imageUrl;
     }
 
+    public List<SimilarItem> getSimilarItems() {
+        return similarItems;
+    }
+
+    public void setSimilarItems(List<SimilarItem> similarItems) {
+        this.similarItems = similarItems;
+    }
+
+    public void addSimilarItem(SimilarItem item){
+
+        if(similarItems == null){
+            similarItems = new ArrayList<>();
+        }
+        similarItems.add(item);
+    }
 
 
     @Override

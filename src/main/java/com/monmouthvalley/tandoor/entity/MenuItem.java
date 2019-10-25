@@ -45,7 +45,7 @@ public class MenuItem {
                             CascadeType.MERGE,
                             CascadeType.PERSIST ,
                             CascadeType.REFRESH})
-    @JoinColumn(name = "similar_menu_item_id")
+    @JoinColumn(name = "parent_menu_item_id")
     private List<SimilarItem> similarItems;
 
 

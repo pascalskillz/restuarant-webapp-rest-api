@@ -14,6 +14,9 @@ public class SimilarItem {
     @Column(name = "similar_menu_item_id")
     private int similarMenuItemId;
 
+    @Column(name = "parent_menu_item_id")
+    private int parentMenuItemId;
+
 
     /*@Column(name = "item_name")
     private String itemName;

@@ -1,6 +1,8 @@
 package com.monmouthvalley.tandoor.rest;
 
+import com.monmouthvalley.tandoor.dao.SimilarItemRepository;
 import com.monmouthvalley.tandoor.entity.MenuItem;
+import com.monmouthvalley.tandoor.entity.SimilarItem;
 import com.monmouthvalley.tandoor.service.MenuItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -39,10 +41,8 @@ public class MenuItemRestController {
 
     @PostMapping("/menuitems")
     public MenuItem addItem(@RequestBody MenuItem item){
-
         //In case they pass an id in JSON...set id to 0
         //this is to force a save of new item...instead of update
-
         item.setId(0);
 
         menuItemService.save(item);
@@ -50,6 +50,17 @@ public class MenuItemRestController {
         return item;
 
     }
+
+    @PostMapping("/menuitems/{itemId}/similaritem")
+    public SimilarItem addSimilarItem(@RequestBody SimilarItem similarItem){
+
+        //MenuItem item = menuItemService.findById(itemId);
+
+        menuItemService.save(similarItem);
+
+       return similarItem;
+    }
+
 
 
     @PutMapping("/menuitems")

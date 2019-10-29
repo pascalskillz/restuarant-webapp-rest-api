@@ -1,5 +1,7 @@
 package com.monmouthvalley.tandoor.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,6 +11,7 @@ public class SimilarItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @JsonIgnore
     private int id;
 
     @Column(name = "similar_menu_item_id")
@@ -29,9 +32,10 @@ public class SimilarItem {
 
     }
 
-    public SimilarItem(int similarMenuItemId){
+    public SimilarItem(int similarMenuItemId, int parentMenuItemId){
 
         this.similarMenuItemId = similarMenuItemId;
+        this.parentMenuItemId = parentMenuItemId;
     }
 
     /*public SimilarItem(String itemName, String itemPrice) {
@@ -55,7 +59,16 @@ public class SimilarItem {
         this.similarMenuItemId = similarMenuItemId;
     }
 
-    /* public String getItemName() {
+    public int getParentMenuItemId() {
+        return parentMenuItemId;
+    }
+
+    public void setParentMenuItemId(int parentMenuItemId) {
+        this.parentMenuItemId = parentMenuItemId;
+    }
+
+
+/* public String getItemName() {
         return itemName;
     }
 

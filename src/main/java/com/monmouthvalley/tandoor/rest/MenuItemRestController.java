@@ -5,8 +5,12 @@ import com.monmouthvalley.tandoor.entity.MenuItem;
 import com.monmouthvalley.tandoor.entity.SimilarItem;
 import com.monmouthvalley.tandoor.service.MenuItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -45,7 +49,7 @@ public class MenuItemRestController {
         //In case they pass an id in JSON...set id to 0
         //this is to force a save of new item...instead of update
         item.setId(0);
-
+        item.setDateCreated(new Date());
         menuItemService.save(item);
 
         return item;

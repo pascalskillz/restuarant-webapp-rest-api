@@ -1,10 +1,13 @@
 package com.monmouthvalley.tandoor.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.monmouthvalley.tandoor.utils.Category;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -15,6 +18,10 @@ public class MenuItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
+
+   // @JsonFormat(pattern = "dd/MM/yyyy")
+    @Column(name = "created_at")
+    private Date dateCreated;
 
     @Column(name = "item_name")
     private String itemName;
@@ -83,6 +90,15 @@ public class MenuItem {
 
     public String getItemName() {
         return itemName;
+    }
+
+
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
     public void setItemName(String itemName) {

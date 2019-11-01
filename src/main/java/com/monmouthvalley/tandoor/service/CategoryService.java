@@ -1,6 +1,6 @@
 package com.monmouthvalley.tandoor.service;
 
-import com.monmouthvalley.tandoor.utils.Category;
+import com.monmouthvalley.tandoor.entity.Category;
 
 import java.util.List;
 

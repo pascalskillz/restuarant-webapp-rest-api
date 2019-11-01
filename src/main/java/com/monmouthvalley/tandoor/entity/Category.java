@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "category")
 public class Category {
 
     @Id
@@ -17,7 +18,8 @@ public class Category {
 
     //menuItems is mapped to category
     //mappedBy = "category" refers to the category field
-    @OneToMany(mappedBy = "category", cascade= CascadeType.ALL)
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY,
+                cascade= CascadeType.ALL)
     private List<MenuItem> menuItems;
 
 

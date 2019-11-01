@@ -1,10 +1,6 @@
 package com.monmouthvalley.tandoor.entity;
 
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -183,7 +179,7 @@ public class MenuItem {
         }
         similarItems.add(item);
     }
-    
+
     @Override
     public String toString() {
         return "MenuItem{" +

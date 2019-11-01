@@ -2,7 +2,6 @@ package com.monmouthvalley.tandoor.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.monmouthvalley.tandoor.utils.Category;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -32,8 +31,16 @@ public class MenuItem {
     @Column(name = "cook_time")
     private int cookTime;
 
-    @Column(name = "category")
-    private String category;
+    //child element
+    //Do not delete category when you delete a menuitem
+
+    @ManyToOne(fetch = FetchType.LAZY,
+                cascade = {CascadeType.DETACH,
+                CascadeType.MERGE,
+                CascadeType.PERSIST ,
+                CascadeType.REFRESH} )
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     @Column(name = "special")
     private boolean isSpecial;
@@ -60,7 +67,7 @@ public class MenuItem {
 
     }
 
-    public MenuItem(String itemName, double itemPrice, int cookTime, String category,
+    public MenuItem(String itemName, double itemPrice, int cookTime, Category category,
                     boolean isSpecial, boolean isVagen, String description, String imageUrl) {
 
         this.itemName = itemName;
@@ -121,11 +128,11 @@ public class MenuItem {
         this.cookTime = cookTime;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
@@ -176,8 +183,7 @@ public class MenuItem {
         }
         similarItems.add(item);
     }
-
-
+    
     @Override
     public String toString() {
         return "MenuItem{" +

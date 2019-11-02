@@ -2,6 +2,7 @@ package com.monmouthvalley.tandoor.rest;
 
 import com.monmouthvalley.tandoor.entity.MenuItem;
 import com.monmouthvalley.tandoor.entity.SimilarItem;
+import com.monmouthvalley.tandoor.service.CategoryService;
 import com.monmouthvalley.tandoor.service.MenuItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,10 +18,14 @@ public class MenuItemRestController {
 
     private MenuItemService menuItemService;
 
+    private CategoryService categoryService;
+
 
     @Autowired
-    public MenuItemRestController(MenuItemService theMenuItemService){
+    public MenuItemRestController(MenuItemService theMenuItemService, CategoryService theCategoryService){
         menuItemService = theMenuItemService;
+        categoryService = theCategoryService;
+
     }
 
     // expose api/menuitems and get all menu items
@@ -47,11 +52,14 @@ public class MenuItemRestController {
         //this is to force a save of new item...instead of update
         item.setId(0);
         item.setDateCreated(new Date());
+        //item.setCategory();
         menuItemService.save(item);
 
         return item;
 
     }
+
+    //@PostMapping("/")
 
     @PostMapping("/menuitems/{itemId}/similaritem")
     public SimilarItem addSimilarItem(@RequestBody SimilarItem similarItem){

@@ -27,6 +27,15 @@ public class Category {
 
     }
 
+    public Category(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public Category(String categoryName, List<MenuItem> menuItems) {
+        this.categoryName = categoryName;
+        this.menuItems = menuItems;
+    }
+
     public int getId() {
         return id;
     }

@@ -31,10 +31,10 @@ public class Category {
         this.categoryName = categoryName;
     }
 
-    public Category(String categoryName, List<MenuItem> menuItems) {
+   /* public Category(String categoryName, List<MenuItem> menuItems) {
         this.categoryName = categoryName;
         this.menuItems = menuItems;
-    }
+    }*/
 
     public int getId() {
         return id;
@@ -67,5 +67,10 @@ public class Category {
         menuItems.add(item);
 
         item.setCategory(this);
+    }
+
+    public void deleteMenuItem(MenuItem item){
+        menuItems.remove(item);
+        item.setCategory(null);
     }
 }

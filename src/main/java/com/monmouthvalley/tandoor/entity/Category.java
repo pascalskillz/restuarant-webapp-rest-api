@@ -1,6 +1,7 @@
 package com.monmouthvalley.tandoor.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +15,9 @@ public class Category {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "category_name")
     @NotNull
+    @NotEmpty
+    @Column(name = "category_name")
     private String categoryName;
 
     //menuItems is mapped to category

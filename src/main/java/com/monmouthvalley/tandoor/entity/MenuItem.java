@@ -184,14 +184,14 @@ public class MenuItem {
         similarItems.add(item);
     }
 
-//    @Override
-//    public String toString() {
-//        return "MenuItem{" +
-//                "id=" + id +
-//                ", itemName='" + itemName + '\'' +
-//                ", itemPrice=" + itemPrice +
-//                ", cookTime=" + cookTime +
-//                ", imageUrl='" + imageUrl + '\'' +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return "MenuItem{" +
+                "id=" + id +
+                ", itemName='" + itemName + '\'' +
+                ", itemPrice=" + itemPrice +
+                ", cookTime=" + cookTime +
+                ", imageUrl='" + imageUrl + '\'' +
+                '}';
+    }
 }

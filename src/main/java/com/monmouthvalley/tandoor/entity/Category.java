@@ -1,6 +1,7 @@
 package com.monmouthvalley.tandoor.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,7 @@ public class Category {
     private int id;
 
     @Column(name = "category_name")
+    @NotNull
     private String categoryName;
 
     //menuItems is mapped to category
@@ -31,10 +33,10 @@ public class Category {
         this.categoryName = categoryName;
     }
 
-   /* public Category(String categoryName, List<MenuItem> menuItems) {
+    public Category(String categoryName, List<MenuItem> menuItems) {
         this.categoryName = categoryName;
-        this.menuItems = menuItems;
-    }*/
+        this.menuItems = null;
+    }
 
     public int getId() {
         return id;
@@ -72,5 +74,13 @@ public class Category {
     public void deleteMenuItem(MenuItem item){
         menuItems.remove(item);
         item.setCategory(null);
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", categoryName='" + categoryName + '\'' +
+                '}';
     }
 }

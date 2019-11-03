@@ -69,6 +69,9 @@ public class MenuItemRestController {
 
     }
 
+    // Saving with categoryService returns menuitem with id of 0 in the json response
+    //but the correct value is entered in the database
+
     /*@PostMapping("/categories/{categoryId}/menuitems")
     public MenuItem addItemByCategory(@RequestBody MenuItem menuItem, @PathVariable int categoryId){
 
@@ -93,7 +96,6 @@ public class MenuItemRestController {
     public SimilarItem addSimilarItem(@RequestBody SimilarItem similarItem){
 
         //MenuItem item = menuItemService.findById(itemId);
-
         menuItemService.save(similarItem);
 
        return similarItem;

@@ -46,7 +46,7 @@ public class MenuItem {
     private boolean isSpecial;
 
     @Column(name = "vegan")
-    private boolean isVagen;
+    private boolean isVegan;
 
     @Column(name = "description")
     private String description;
@@ -68,14 +68,14 @@ public class MenuItem {
     }
 
     public MenuItem(String itemName, double itemPrice, int cookTime, Category category,
-                    boolean isSpecial, boolean isVagen, String description, String imageUrl) {
+                    boolean isSpecial, boolean isVegan, String description, String imageUrl) {
 
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.cookTime = cookTime;
         this.category = category;
         this.isSpecial = isSpecial;
-        this.isVagen = isVagen;
+        this.isVegan = isVegan;
         this.description = description;
         this.imageUrl = imageUrl;
     }
@@ -144,12 +144,12 @@ public class MenuItem {
         isSpecial = special;
     }
 
-    public boolean isVagen() {
-        return isVagen;
+    public boolean isVegan() {
+        return isVegan;
     }
 
-    public void setVagen(boolean vagen) {
-        isVagen = vagen;
+    public void setVegan(boolean vegan) {
+        isVegan = vegan;
     }
 
     public String getDescription() {

@@ -17,7 +17,6 @@ public class MenuItem {
     @Column(name = "id")
     private int id;
 
-   // @JsonFormat(pattern = "dd/MM/yyyy")
     @Column(name = "created_at")
     private Date dateCreated;
 

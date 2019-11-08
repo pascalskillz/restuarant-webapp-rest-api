@@ -3,6 +3,7 @@ package com.monmouthvalley.tandoor.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,7 +25,7 @@ public class MenuItem {
     private String itemName;
 
     @Column(name = "item_price")
-    private double itemPrice;
+    private BigDecimal itemPrice;
 
     @Column(name = "cook_time")
     private int cookTime;
@@ -41,6 +42,9 @@ public class MenuItem {
     @JoinColumn(name = "category_id")
     @JsonIgnore
     private Category category;
+
+    @Column(name = "category_id", insertable = false, updatable = false)
+    private int categoryId;
 
     @Column(name = "special")
     private boolean isSpecial;
@@ -67,20 +71,21 @@ public class MenuItem {
 
     }
 
-    public MenuItem(String itemName, double itemPrice, int cookTime, Category category,
+    public MenuItem(String itemName, BigDecimal itemPrice, int cookTime, Category category, int categoryId,
                     boolean isSpecial, boolean isVegan, String description, String imageUrl) {
 
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.cookTime = cookTime;
         this.category = category;
+        this.categoryId = categoryId;
         this.isSpecial = isSpecial;
         this.isVegan = isVegan;
         this.description = description;
         this.imageUrl = imageUrl;
     }
 
-    public MenuItem(String itemName, double itemPrice, int cookTime, String imageUrl) {
+    public MenuItem(String itemName, BigDecimal itemPrice, int cookTime, String imageUrl) {
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.cookTime = cookTime;
@@ -112,11 +117,11 @@ public class MenuItem {
         this.itemName = itemName;
     }
 
-    public double getItemPrice() {
+    public BigDecimal getItemPrice() {
         return itemPrice;
     }
 
-    public void setItemPrice(double itemPrice) {
+    public void setItemPrice(BigDecimal itemPrice) {
         this.itemPrice = itemPrice;
     }
 
@@ -134,6 +139,10 @@ public class MenuItem {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
     }
 
     public boolean isSpecial() {
@@ -175,6 +184,7 @@ public class MenuItem {
     public void setSimilarItems(List<SimilarItem> similarItems) {
         this.similarItems = similarItems;
     }
+
 
     public void addSimilarItem(SimilarItem item){
 

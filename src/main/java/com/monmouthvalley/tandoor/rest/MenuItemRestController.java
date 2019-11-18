@@ -96,8 +96,10 @@ public class MenuItemRestController {
     public SimilarItem addSimilarItem(@RequestBody SimilarItem similarItem,
                                       @PathVariable int parentItemId){
 
+        //Get parentItem for validation
         MenuItem parentItem = menuItemService.findById(parentItemId);
 
+        //Get the similarItem for validation. Similar item should already exist in the db
         int similarMenuItemId = similarItem.getSimilarMenuItemId();
 
         MenuItem theSimilarItem = menuItemService.findById(similarMenuItemId);
@@ -111,12 +113,13 @@ public class MenuItemRestController {
             throw new RuntimeException("No item found with the id " + similarMenuItemId);
         }
 
-       // SimilarItem newSimilarItem = new SimilarItem(similarMenuItemId, parentItemId);
-
+        //set the similar item parent item
         similarItem.setParentMenuItemId(parentItemId);
 
+        //add this item to the parentItem similarItems's list
         parentItem.addSimilarItem(similarItem);
 
+        //save parent item. Cascades down and saves the similaritem too
         menuItemService.save(parentItem);
 
        return similarItem;

@@ -32,6 +32,10 @@ public class SimilarItem {
 
     }
 
+    public SimilarItem(int similarMenuItemId){
+        this.similarMenuItemId = similarMenuItemId;
+    }
+
     public SimilarItem(int similarMenuItemId, int parentMenuItemId){
 
         this.similarMenuItemId = similarMenuItemId;

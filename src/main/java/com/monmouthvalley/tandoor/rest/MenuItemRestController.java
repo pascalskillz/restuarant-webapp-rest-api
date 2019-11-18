@@ -92,11 +92,32 @@ public class MenuItemRestController {
 
     }*/
 
-    @PostMapping("/menuitems/{itemId}/similaritem")
-    public SimilarItem addSimilarItem(@RequestBody SimilarItem similarItem){
+    @PostMapping("/menuitems/{parentItemId}/similaritem")
+    public SimilarItem addSimilarItem(@RequestBody SimilarItem similarItem,
+                                      @PathVariable int parentItemId){
 
-        //MenuItem item = menuItemService.findById(itemId);
-        menuItemService.save(similarItem);
+        MenuItem parentItem = menuItemService.findById(parentItemId);
+
+        int similarMenuItemId = similarItem.getSimilarMenuItemId();
+
+        MenuItem theSimilarItem = menuItemService.findById(similarMenuItemId);
+
+         //similarItem = menuItemService.findById(similarMenuItemId);
+
+        if(parentItem == null ){
+            throw new RuntimeException("No item found with the id " + parentItem);
+        }
+        if(theSimilarItem == null ){
+            throw new RuntimeException("No item found with the id " + similarMenuItemId);
+        }
+
+       // SimilarItem newSimilarItem = new SimilarItem(similarMenuItemId, parentItemId);
+
+        similarItem.setParentMenuItemId(parentItemId);
+
+        parentItem.addSimilarItem(similarItem);
+
+        menuItemService.save(parentItem);
 
        return similarItem;
     }

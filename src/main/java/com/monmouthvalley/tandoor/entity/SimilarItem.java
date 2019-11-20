@@ -72,6 +72,8 @@ public class SimilarItem {
     }
 
 
+
+
 /* public String getItemName() {
         return itemName;
     }

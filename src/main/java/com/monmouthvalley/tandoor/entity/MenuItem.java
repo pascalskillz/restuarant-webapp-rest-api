@@ -193,6 +193,11 @@ public class MenuItem {
         similarItems.add(item);
     }
 
+    public void removeSimilarItem(SimilarItem item){
+
+        this.similarItems.remove(item);
+    }
+
     @Override
     public String toString() {
         return "MenuItem{" +

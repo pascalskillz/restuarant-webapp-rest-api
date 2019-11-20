@@ -5,8 +5,6 @@ import com.monmouthvalley.tandoor.dao.SimilarItemRepository;
 import com.monmouthvalley.tandoor.entity.MenuItem;
 import com.monmouthvalley.tandoor.entity.SimilarItem;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,9 +49,13 @@ public class MenuItemServiceImpl implements MenuItemService {
         return item;
     }
 
+ /*   @Override
+    public MenuItem findByName(String name) {
+        menuItemRepository;
+    }*/
+
     @Override
     public void save(MenuItem menuItem) {
-
         menuItemRepository.save(menuItem);
 
     }
@@ -65,11 +67,29 @@ public class MenuItemServiceImpl implements MenuItemService {
 
 
     // saving a similar item
-
     @Override
     public void save(SimilarItem similarItem) {
 
         similarItemRepository.save(similarItem);
 
     }
+
+    @Override
+    public SimilarItem findSimilarItem(int similarMenuItemId, int parentMenuItemId) {
+
+        SimilarItem result = similarItemRepository
+                .findSimilarItemBySimilarMenuItemIdAndParentMenuItemId(similarMenuItemId, parentMenuItemId);
+
+        if(result == null){
+            throw new RuntimeException("No similar item with id " + similarMenuItemId);
+        }
+
+        return result;
+    }
+
+    /*@Override
+    public void deleteSimilarItem(int similarMenuItemId, int parentMenuItemId) {
+
+
+    }*/
 }

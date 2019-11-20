@@ -125,6 +125,28 @@ public class MenuItemRestController {
        return similarItem;
     }
 
+   /* @DeleteMapping("/menuitems/{parentItemId}/similaritem/{similarMenuItemId}")
+    public String removeSimilarItem(@PathVariable int parentItemId, @PathVariable int similarMenuItemId){
+
+
+        MenuItem parentItem = menuItemService.findById(parentItemId);
+
+        //SimilarItem similarItem = menuItemService.findSimilarItem(similarMenuItemId);
+
+        parentItem.removeSimilarItem(similarMenuItemId);
+
+        menuItemService.deleteSimilarItemById(similarItem.getId());
+
+        return "Removed menu item with id " + similarMenuItemId + " from similarItem list of item with id " + parentItemId;
+
+    }*/
+
+   @GetMapping("/menuitems/{parentItemId}/similaritem/{similarMenuItemId}")
+   public SimilarItem getSimilarItem(@PathVariable int similarMenuItemId, @PathVariable int parentItemId){
+
+       return menuItemService.findSimilarItem(similarMenuItemId,parentItemId);
+   }
+
     @PutMapping("/menuitems")
     public MenuItem updateItem(@RequestBody MenuItem item){
 

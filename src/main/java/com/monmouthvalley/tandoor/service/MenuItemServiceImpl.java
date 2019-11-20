@@ -6,6 +6,7 @@ import com.monmouthvalley.tandoor.entity.MenuItem;
 import com.monmouthvalley.tandoor.entity.SimilarItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -85,6 +86,14 @@ public class MenuItemServiceImpl implements MenuItemService {
         }
 
         return result;
+    }
+
+    @Override
+    @Transactional
+    public void deleteSimilarItem(int similarMenuItemId, int parentMenuItemId) {
+
+       similarItemRepository
+               .deleteSimilarItemBySimilarMenuItemIdAndParentMenuItemId(similarMenuItemId, parentMenuItemId);
     }
 
     /*@Override

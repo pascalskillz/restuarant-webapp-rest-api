@@ -125,6 +125,39 @@ public class MenuItemRestController {
        return similarItem;
     }
 
+
+    //endpoint for adding an array of similar items
+
+    @PostMapping("/menuitems/{parentItemId}/similaritems")
+    public SimilarItem[] addSimilarItems(@RequestBody SimilarItem[] similarItem,
+                                      @PathVariable int parentItemId){
+
+        //Get parentItem for validation
+        MenuItem parentItem = menuItemService.findById(parentItemId);
+
+        if(parentItem == null ){
+            throw new RuntimeException("No item found with the id " + parentItem);
+        }
+        //Get the similarItem for validation. Similar item should already exist in the db
+        for (SimilarItem item : similarItem) {
+
+            int similarMenuItemId = item.getSimilarMenuItemId();
+
+            MenuItem theSimilarItem = menuItemService.findById(similarMenuItemId);
+
+            if(theSimilarItem == null ){
+                throw new RuntimeException("No item found with the id " + similarMenuItemId);
+            }
+
+            item.setParentMenuItemId(parentItemId);
+            parentItem.addSimilarItem(item);
+        }
+        menuItemService.save(parentItem);
+
+        return similarItem;
+    }
+
+
     @DeleteMapping("/menuitems/{parentItemId}/similaritem/{similarMenuItemId}")
     public String removeSimilarItem(@PathVariable int parentItemId, @PathVariable int similarMenuItemId){
 

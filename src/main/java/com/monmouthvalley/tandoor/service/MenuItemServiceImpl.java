@@ -4,6 +4,7 @@ import com.monmouthvalley.tandoor.dao.MenuItemRepository;
 import com.monmouthvalley.tandoor.dao.SimilarItemRepository;
 import com.monmouthvalley.tandoor.entity.MenuItem;
 import com.monmouthvalley.tandoor.entity.SimilarItem;
+import com.monmouthvalley.tandoor.exception.GenericNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,7 +45,7 @@ public class MenuItemServiceImpl implements MenuItemService {
         }
         else {
             //meunItem not found
-            throw new RuntimeException("No menu item with id " + id);
+            throw new GenericNotFoundException("No menu item with id " + id);
 
         }
         return item;
@@ -82,7 +83,7 @@ public class MenuItemServiceImpl implements MenuItemService {
                 .findSimilarItemBySimilarMenuItemIdAndParentMenuItemId(similarMenuItemId, parentMenuItemId);
 
         if(result == null){
-            throw new RuntimeException("No similar item with id " + similarMenuItemId);
+            throw new GenericNotFoundException("No similar item with id " + similarMenuItemId);
         }
 
         return result;

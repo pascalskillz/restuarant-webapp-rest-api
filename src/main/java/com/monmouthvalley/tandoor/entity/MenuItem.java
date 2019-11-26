@@ -20,7 +20,7 @@ public class MenuItem {
     @Column(name = "created_at")
     private Date dateCreated;
 
-    @Column(name = "item_name")
+    @Column(name = "item_name", unique = true)
     private String itemName;
 
     @Column(name = "item_price")

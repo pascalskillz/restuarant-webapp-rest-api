@@ -2,6 +2,7 @@ package com.monmouthvalley.tandoor.service;
 
 import com.monmouthvalley.tandoor.dao.CategoryRepository;
 import com.monmouthvalley.tandoor.entity.Category;
+import com.monmouthvalley.tandoor.exception.GenericNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +38,7 @@ public class CategoryServiceImpl implements CategoryService{
         }
         else {
             //Category not found
-            throw new RuntimeException("No Category with id " + id);
+            throw new GenericNotFoundException("No Category with id " + id);
 
         }
         return category;

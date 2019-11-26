@@ -3,12 +3,14 @@ package com.monmouthvalley.tandoor.rest;
 import com.monmouthvalley.tandoor.entity.Category;
 import com.monmouthvalley.tandoor.entity.MenuItem;
 import com.monmouthvalley.tandoor.entity.SimilarItem;
+import com.monmouthvalley.tandoor.exception.GenericNotFoundException;
 import com.monmouthvalley.tandoor.service.CategoryService;
 import com.monmouthvalley.tandoor.service.MenuItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
 
@@ -42,20 +44,21 @@ public class MenuItemRestController {
 
 
         if(item == null){
-            throw new RuntimeException("Item with the id " + itemId + " not found");
+            throw new GenericNotFoundException("Item with the id " + itemId + " not found");
         }
         return item;
     }
 
     @PostMapping("/menuitems")
-    public MenuItem addItem(@RequestBody MenuItem item, @RequestParam int categoryId){
+    public MenuItem addItem(@Valid @RequestBody MenuItem item, @RequestParam int categoryId){
         //In case they pass an id in JSON...set id to 0
         //this is to force a save of new item...instead of update
         Category category = categoryService.findById(categoryId);
 
         if(category == null){
-            throw new RuntimeException("No category found with the id " + categoryId);
+            throw new GenericNotFoundException("No category found with the id " + categoryId);
         }
+
         item.setId(0);
         item.setDateCreated(new Date());
 
@@ -107,10 +110,10 @@ public class MenuItemRestController {
          //similarItem = menuItemService.findById(similarMenuItemId);
 
         if(parentItem == null ){
-            throw new RuntimeException("No item found with the id " + parentItem);
+            throw new GenericNotFoundException("No item found with the id " + parentItem);
         }
         if(theSimilarItem == null ){
-            throw new RuntimeException("No item found with the id " + similarMenuItemId);
+            throw new GenericNotFoundException("No item found with the id " + similarMenuItemId);
         }
 
         //set the similar item parent item
@@ -136,7 +139,7 @@ public class MenuItemRestController {
         MenuItem parentItem = menuItemService.findById(parentItemId);
 
         if(parentItem == null ){
-            throw new RuntimeException("No item found with the id " + parentItem);
+            throw new GenericNotFoundException("No item found with the id " + parentItem);
         }
         //Get the similarItem for validation. Similar item should already exist in the db
         for (SimilarItem item : similarItem) {
@@ -146,7 +149,7 @@ public class MenuItemRestController {
             MenuItem theSimilarItem = menuItemService.findById(similarMenuItemId);
 
             if(theSimilarItem == null ){
-                throw new RuntimeException("No item found with the id " + similarMenuItemId);
+                throw new GenericNotFoundException("No item found with the id " + similarMenuItemId);
             }
 
             item.setParentMenuItemId(parentItemId);
@@ -169,7 +172,7 @@ public class MenuItemRestController {
         //parentItem.removeSimilarItem(similarMenuItemId);
 
         if(parentItem == null){
-            throw new RuntimeException("Item with the id " + parentItemId + " not found");
+            throw new GenericNotFoundException("Item with the id " + parentItemId + " not found");
         }
         menuItemService.deleteSimilarItem(similarMenuItemId, parentItemId);
 
@@ -197,7 +200,7 @@ public class MenuItemRestController {
         MenuItem item = menuItemService.findById(itemId);
 
         if(item == null){
-            throw new RuntimeException("Item with the id " + itemId + " not found");
+            throw new GenericNotFoundException("Item with the id " + itemId + " not found");
         }
 
         menuItemService.deleteById(itemId);

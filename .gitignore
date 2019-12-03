@@ -21,6 +21,8 @@ target/
 application.properties
 .DS_Store
 target/
+/.ebextensions
+.ebextensions
 
 ### NetBeans ###
 /nbproject/private/

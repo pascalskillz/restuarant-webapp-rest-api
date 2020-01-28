@@ -65,9 +65,34 @@ public class MenuItem {
     @JoinColumn(name = "parent_menu_item_id")
     private List<SimilarItem> similarItems;
 
+    /*@ManyToOne(fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.PERSIST ,
+                    CascadeType.REFRESH} )
+    @JoinColumn(name = "order_number")
+    @JsonIgnore
+    private Order order;*/
+
 
     public  MenuItem(){
 
+    }
+
+
+    public MenuItem(String itemName, BigDecimal itemPrice, int cookTime, Category category, int categoryId,
+                    boolean isSpecial, boolean isVegan, String description, String imageUrl, List<SimilarItem> similarItems) {
+
+        this.itemName = itemName;
+        this.itemPrice = itemPrice;
+        this.cookTime = cookTime;
+        this.category = category;
+        this.categoryId = categoryId;
+        this.isSpecial = isSpecial;
+        this.isVegan = isVegan;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        this.similarItems = similarItems;
     }
 
     public MenuItem(String itemName, BigDecimal itemPrice, int cookTime, Category category, int categoryId,
@@ -84,12 +109,12 @@ public class MenuItem {
         this.imageUrl = imageUrl;
     }
 
-    public MenuItem(String itemName, BigDecimal itemPrice, int cookTime, String imageUrl) {
+    /*public MenuItem(String itemName, BigDecimal itemPrice, int cookTime, String imageUrl) {
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.cookTime = cookTime;
         this.imageUrl = imageUrl;
-    }
+    }*/
 
     public int getId() {
         return id;

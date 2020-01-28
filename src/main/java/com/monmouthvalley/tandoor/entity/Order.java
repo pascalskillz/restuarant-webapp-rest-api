@@ -1,7 +1,9 @@
 package com.monmouthvalley.tandoor.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "tandoor_order")
@@ -23,6 +25,17 @@ public class Order {
 
     @Column(name = "menu_item_id")
     private int menuItemId;
+
+
+    //when you delete order don't delete menuItem
+
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade= {CascadeType.DETACH,
+            CascadeType.MERGE,
+            CascadeType.PERSIST ,
+            CascadeType.REFRESH})
+    @JoinColumn(name = "item_name")
+    private List<MenuItem> menuItems;
 
     @Column(name = "quantity")
     private int quantity;
@@ -78,6 +91,24 @@ public class Order {
 
     public void setMenuItemId(int menuItemId) {
         this.menuItemId = menuItemId;
+    }
+
+    public List<MenuItem> getMenuItem() {
+        return menuItems;
+    }
+
+    /*public void addMenuItem(MenuItem item){
+        if(menuItems == null){
+            menuItems = new ArrayList<>();
+        }
+        menuItems.add(item);
+
+        item.setOrder(this);
+    }*/
+
+    public void setMenuItem(List<MenuItem> menuItemList) {
+
+        this.menuItems = menuItemList;
     }
 
     public int getQuantity() {

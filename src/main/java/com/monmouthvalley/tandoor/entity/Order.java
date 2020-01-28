@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "order")
+@Table(name = "tandoor_order")
 public class Order {
 
     @Id
@@ -12,8 +12,8 @@ public class Order {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "oreder_number")
-    private int orderNumber;
+    @Column(name = "order_number")
+    private String orderNumber;
 
     @Column(name = "created_at")
     private Date dateCreated;
@@ -21,7 +21,7 @@ public class Order {
     @Column(name = "customer_name")
     private String customerName;
 
-    @Column(name = "item_id")
+    @Column(name = "menu_item_id")
     private int menuItemId;
 
     @Column(name = "quantity")
@@ -32,7 +32,7 @@ public class Order {
 
     }
 
-    public Order(int orderNumber, Date dateCreated, String customerName, int menuItemId, int quantity) {
+    public Order(String orderNumber, Date dateCreated, String customerName, int menuItemId, int quantity) {
         this.orderNumber = orderNumber;
         this.dateCreated = dateCreated;
         this.customerName = customerName;
@@ -48,11 +48,11 @@ public class Order {
         this.id = id;
     }
 
-    public int getOrderNumber() {
+    public String getOrderNumber() {
         return orderNumber;
     }
 
-    public void setOrderNumber(int orderNumber) {
+    public void setOrderNumber(String orderNumber) {
         this.orderNumber = orderNumber;
     }
 

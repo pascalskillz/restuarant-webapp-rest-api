@@ -17,6 +17,9 @@ public class MenuItem {
     @Column(name = "id")
     private int id;
 
+    /*@Column(name = "menu_item_id")
+    private String menuItemId;
+*/
     @Column(name = "created_at")
     private Date dateCreated;
     
@@ -31,7 +34,7 @@ public class MenuItem {
 
     //child element
     //Do not delete category when you delete a menuitem
-
+    //Category_id is a column in menuitem table
 
     @ManyToOne(fetch = FetchType.LAZY,
                 cascade = {CascadeType.DETACH,
@@ -57,13 +60,28 @@ public class MenuItem {
     @Column(name = "image_url")
     private String imageUrl;
 
+    //if item is deleted, delete the similar item associated with it in the database
+    //JoinColumn -owner(independent)
     //setting up a unidirectional relationship with similarItems
-    @OneToMany( fetch = FetchType.LAZY, cascade = {CascadeType.DETACH,
-                            CascadeType.MERGE,
-                            CascadeType.PERSIST ,
-                            CascadeType.REFRESH})
-    @JoinColumn(name = "parent_menu_item_id")
+
+    /*@OneToMany(mappedBy = "menuItem", fetch = FetchType.LAZY,
+            cascade= CascadeType.ALL)
+    private List<SimilarItem> similarItems;*/
+
+
+    /*@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "similar_menu_item_id")
+    private List<SimilarItem> similarItems;*/
+
+    /*@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "similar_menu_item_id")
+    private List<SimilarItem> similarItems;*/
+
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "menu_item_id")
     private List<SimilarItem> similarItems;
+
 
     /*@ManyToOne(fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH,
@@ -109,12 +127,6 @@ public class MenuItem {
         this.imageUrl = imageUrl;
     }
 
-    /*public MenuItem(String itemName, BigDecimal itemPrice, int cookTime, String imageUrl) {
-        this.itemName = itemName;
-        this.itemPrice = itemPrice;
-        this.cookTime = cookTime;
-        this.imageUrl = imageUrl;
-    }*/
 
     public int getId() {
         return id;
@@ -123,6 +135,14 @@ public class MenuItem {
     public void setId(int id) {
         this.id = id;
     }
+
+    /*public String getMenuItemId() {
+        return menuItemId;
+    }
+
+    public void setMenuItemId(String menuItemId) {
+        this.menuItemId = menuItemId;
+    }*/
 
     public String getItemName() {
         return itemName;
@@ -216,6 +236,7 @@ public class MenuItem {
             similarItems = new ArrayList<>();
         }
         similarItems.add(item);
+        item.setMenuItem(this);
     }
 
     public void removeSimilarItem(SimilarItem item){

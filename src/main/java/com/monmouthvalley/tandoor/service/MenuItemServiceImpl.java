@@ -58,6 +58,7 @@ public class MenuItemServiceImpl implements MenuItemService {
 
     @Override
     public void save(MenuItem menuItem) {
+
         menuItemRepository.save(menuItem);
 
     }
@@ -68,15 +69,15 @@ public class MenuItemServiceImpl implements MenuItemService {
     }
 
 
-    // saving a similar item
-    @Override
-    public void save(SimilarItem similarItem) {
+//    // saving a similar item
+//    @Override
+//    public void save(SimilarItem similarItem) {
+//
+//        similarItemRepository.save(similarItem);
+//
+//    }
 
-        similarItemRepository.save(similarItem);
-
-    }
-
-    @Override
+   /* @Override
     public SimilarItem findSimilarItem(int similarMenuItemId, int parentMenuItemId) {
 
         SimilarItem result = similarItemRepository
@@ -95,7 +96,7 @@ public class MenuItemServiceImpl implements MenuItemService {
 
        similarItemRepository
                .deleteSimilarItemBySimilarMenuItemIdAndParentMenuItemId(similarMenuItemId, parentMenuItemId);
-    }
+    }*/
 
     /*@Override
     public void deleteSimilarItem(int similarMenuItemId, int parentMenuItemId) {

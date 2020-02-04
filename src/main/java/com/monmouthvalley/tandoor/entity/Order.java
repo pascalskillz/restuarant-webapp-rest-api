@@ -23,34 +23,19 @@ public class Order {
     @Column(name = "customer_name")
     private String customerName;
 
-    @Column(name = "menu_item_id")
-    private int menuItemId;
-
-
-    //when you delete order don't delete menuItem
-
-    @OneToMany(fetch = FetchType.LAZY,
-            cascade= {CascadeType.DETACH,
-            CascadeType.MERGE,
-            CascadeType.PERSIST ,
-            CascadeType.REFRESH})
-    @JoinColumn(name = "item_name")
-    private List<MenuItem> menuItems;
-
-    @Column(name = "quantity")
-    private int quantity;
+    //delete order details when you delete an order
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderDetails> orderDetails;
 
 
     public Order(){
 
     }
 
-    public Order(String orderNumber, Date dateCreated, String customerName, int menuItemId, int quantity) {
+    public Order(String orderNumber, Date dateCreated, String customerName) {
         this.orderNumber = orderNumber;
         this.dateCreated = dateCreated;
         this.customerName = customerName;
-        this.menuItemId = menuItemId;
-        this.quantity = quantity;
     }
 
     public int getId() {
@@ -85,19 +70,15 @@ public class Order {
         this.customerName = customerName;
     }
 
-    public int getMenuItemId() {
-        return menuItemId;
+    public List<OrderDetails> getOrderDetails() {
+        return orderDetails;
     }
 
-    public void setMenuItemId(int menuItemId) {
-        this.menuItemId = menuItemId;
+    public void setOrderDetails(List<OrderDetails> orderDetails) {
+        this.orderDetails = orderDetails;
     }
 
-    public List<MenuItem> getMenuItem() {
-        return menuItems;
-    }
-
-    /*public void addMenuItem(MenuItem item){
+/*public void addMenuItem(MenuItem item){
         if(menuItems == null){
             menuItems = new ArrayList<>();
         }
@@ -105,18 +86,5 @@ public class Order {
 
         item.setOrder(this);
     }*/
-
-    public void setMenuItem(List<MenuItem> menuItemList) {
-
-        this.menuItems = menuItemList;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
 }
 

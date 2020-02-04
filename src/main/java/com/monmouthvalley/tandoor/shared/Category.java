@@ -1,4 +1,4 @@
-package com.monmouthvalley.tandoor.utils;
+package com.monmouthvalley.tandoor.shared;
 
 public enum Category {
     APPETIZER,

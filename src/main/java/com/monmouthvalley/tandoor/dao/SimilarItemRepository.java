@@ -7,10 +7,10 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface SimilarItemRepository extends JpaRepository<SimilarItem, Integer> {
 
-    @Query("select item from SimilarItem item where item.similarMenuItemId = ?1 and item.parentMenuItemId=?2")
+   /* @Query("select item from SimilarItem item where item.similarMenuItemId = ?1 and item.parentMenuItemId=?2")
     public SimilarItem findSimilarItemBySimilarMenuItemIdAndParentMenuItemId(int similarMenuItemId, int parentMenuItemId);
 
     @Modifying
     @Query("delete from SimilarItem item where item.similarMenuItemId = ?1 and item.parentMenuItemId=?2")
-    public void deleteSimilarItemBySimilarMenuItemIdAndParentMenuItemId(int similarMenuItemId, int parentMenuItemId);
+    public void deleteSimilarItemBySimilarMenuItemIdAndParentMenuItemId(int similarMenuItemId, int parentMenuItemId);*/
 }

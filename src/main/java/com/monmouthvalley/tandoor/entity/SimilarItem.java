@@ -17,16 +17,26 @@ public class SimilarItem {
     @Column(name = "similar_menu_item_id")
     private int similarMenuItemId;
 
-    @Column(name = "parent_menu_item_id")
-    private int parentMenuItemId;
+    /*@Column(name = "parent_menu_item_id",insertable = false, updatable = false)
+    private int parentMenuItemId;*/
+
+    @Column(name = "menu_item_id",insertable=false, updatable=false)
+    @JsonIgnore
+    private int menuItemId;
+
+    /*@ManyToOne(fetch = FetchType.LAZY,
+               cascade = {CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.PERSIST ,
+                    CascadeType.REFRESH} )
+    @JoinColumn(name = "similar_menu_item_id")
+    @JsonIgnore
+    private MenuItem menuItem;*/
 
 
-    /*@Column(name = "item_name")
-    private String itemName;
-
-    @Column(name = "item_price")
-    private String itemPrice;
-*/
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private MenuItem menuItem;
 
     public SimilarItem(){
 
@@ -39,13 +49,8 @@ public class SimilarItem {
     public SimilarItem(int similarMenuItemId, int parentMenuItemId){
 
         this.similarMenuItemId = similarMenuItemId;
-        this.parentMenuItemId = parentMenuItemId;
+        //this.parentMenuItemId = parentMenuItemId;
     }
-
-    /*public SimilarItem(String itemName, String itemPrice) {
-        this.itemName = itemName;
-        this.itemPrice = itemPrice;
-    }*/
 
     public int getId() {
         return id;
@@ -63,30 +68,28 @@ public class SimilarItem {
         this.similarMenuItemId = similarMenuItemId;
     }
 
-    public int getParentMenuItemId() {
+    /*public int getParentMenuItemId() {
         return parentMenuItemId;
     }
 
     public void setParentMenuItemId(int parentMenuItemId) {
         this.parentMenuItemId = parentMenuItemId;
-    }
-
-
-
-
-/* public String getItemName() {
-        return itemName;
-    }
-
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
-    }
-
-    public String getItemPrice() {
-        return itemPrice;
-    }
-
-    public void setItemPrice(String itemPrice) {
-        this.itemPrice = itemPrice;
     }*/
+
+
+    public void setMenuItem(MenuItem menuItem) {
+        this.menuItem = menuItem;
+    }
+
+    public MenuItem getMenuItem() {
+        return menuItem;
+    }
+
+    public int getMenuItemId() {
+        return menuItemId;
+    }
+
+    public void setMenuItemId(int menuItemId) {
+        this.menuItemId = menuItemId;
+    }
 }

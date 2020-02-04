@@ -18,14 +18,14 @@ public interface MenuItemService {
 
     public void deleteById(int id);
 
-    public void save(SimilarItem similarItem);
+    /*public void save(SimilarItem similarItem);*/
 
-    public SimilarItem findSimilarItem(
+    /*public SimilarItem findSimilarItem(
             int similarMenuItemId, int parentMenuItemId
     );
     public void deleteSimilarItem(
             int similarMenuItemId, int parentMenuItemId
-    );
+    );*/
 
 //    public void deleteSimilarItem();
 }

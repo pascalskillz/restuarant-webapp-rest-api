@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,19 +37,9 @@ public class MenuItemServiceImpl implements MenuItemService {
 
         //using optional so we don't have to specifically check for null
 
-        Optional<MenuItem> result = menuItemRepository.findById(id);
+        MenuItem menuItem = validateMenuItem(id);
 
-        MenuItem item;
-
-        if(result.isPresent()){
-            item = result.get();
-        }
-        else {
-            //meunItem not found
-            throw new GenericNotFoundException("No menu item with id " + id);
-
-        }
-        return item;
+        return menuItem;
     }
 
  /*   @Override
@@ -57,15 +48,81 @@ public class MenuItemServiceImpl implements MenuItemService {
     }*/
 
     @Override
-    public void save(MenuItem menuItem) {
+    public void save(MenuItem item) {
 
-        menuItemRepository.save(menuItem);
+        if(!(item.getSimilarItems() == null)){
+
+            List<SimilarItem> similarItems = item.getSimilarItems();
+
+            for(SimilarItem similarItem: similarItems){
+
+                int similarMenuItemId = similarItem.getSimilarMenuItemId();
+
+                validateMenuItem(similarMenuItemId);
+
+                //menu item has a list of similar items and
+                //here we are adding each similarItem to this item similarItem's list
+
+                //item.addSimilarItem(similarItem);
+
+                //item.getSimilarItems().add(similarItem);
+
+                similarItem.setMenuItem(item);
+
+                //similarItem.setParentMenuItemId(item.getId());
+            }
+            item.setSimilarItems(similarItems);
+        }
+
+        //item.setId(0);
+
+        item.setDateCreated(new Date());
+
+        menuItemRepository.save(item);
 
     }
 
     @Override
     public void deleteById(int id) {
         menuItemRepository.deleteById(id);
+    }
+
+
+    /*private void validateSimilarItem(SimilarItem item) {
+
+        int similarMenuItemId = item.getSimilarMenuItemId();
+
+        Optional<MenuItem> result = menuItemRepository.findById(similarMenuItemId);
+
+        MenuItem similarItem;
+
+        if(result.isPresent()){
+            similarItem = result.get();
+        }
+        else {
+            //meunItem not found
+            throw new GenericNotFoundException("No menu item with id " + similarMenuItemId);
+
+        }
+    }*/
+
+    private MenuItem validateMenuItem(int menuItemId) {
+
+        Optional<MenuItem> result = menuItemRepository.findById(menuItemId);
+
+        MenuItem menuItem;
+
+        if(result.isPresent()){
+            menuItem = result.get();
+        }
+        else {
+
+            //meunItem not found
+            throw new GenericNotFoundException("No menu item with id " + menuItemId);
+
+        }
+
+        return menuItem;
     }
 
 

@@ -61,44 +61,8 @@ public class MenuItemRestController {
     public MenuItem addItem(@Valid @RequestBody MenuItem item, @RequestParam int categoryId) {
         //In case they pass an id in JSON...set id to 0
         //this is to force a save of new item...instead of update
-        Category category = categoryService.findById(categoryId);
 
-        if (category == null) {
-            throw new GenericNotFoundException("No category found with the id " + categoryId);
-        }
-
-
-
-        if(!(item.getSimilarItems() == null)){
-
-            List<SimilarItem> similarItems = item.getSimilarItems();
-
-            for(SimilarItem similarItem: similarItems){
-
-                validateItem(similarItem);
-
-                //menu item has a list of similar items and
-                //here we are adding each similarItem to this item similarItem's list
-
-                //item.addSimilarItem(similarItem);
-
-                //item.getSimilarItems().add(similarItem);
-
-               // similarItem.setMenuItem();
-
-                //similarItem.setParentMenuItemId(item.getId());
-            }
-        }
-
-        //item.setId(0);
-
-        //item.setSimilarItems(similarItems);
-
-        item.setDateCreated(new Date());
-
-        item.setCategory(category);
-
-        category.addMenuItem(item);
+        validateAndSetCategory(item, categoryId);
 
         menuItemService.save(item);
 
@@ -219,7 +183,9 @@ public class MenuItemRestController {
     }*/
 
     @PutMapping("/menuitems")
-    public MenuItem updateItem(@RequestBody MenuItem item) {
+    public MenuItem updateItem(@RequestBody MenuItem item, @RequestParam int categoryId) {
+
+        validateAndSetCategory(item, categoryId);
 
         menuItemService.save(item);
 
@@ -241,15 +207,19 @@ public class MenuItemRestController {
     }
 
 
-    private void validateItem(SimilarItem item) {
+    private void validateAndSetCategory(MenuItem item, int categoryId){
 
-        int similarMenuItemId = item.getSimilarMenuItemId();
+        Category category = categoryService.findById(categoryId);
 
-        MenuItem theSimilarItem = menuItemService.findById(similarMenuItemId);
-
-        if (theSimilarItem == null) {
-            throw new GenericNotFoundException("No item found with the id " + similarMenuItemId);
+        if (category == null) {
+            throw new GenericNotFoundException("No category found with the id " + categoryId);
         }
+
+        item.setCategory(category);
+
+        category.addMenuItem(item);
+
     }
+
 }
 

@@ -78,9 +78,13 @@ public class MenuItem {
     private List<SimilarItem> similarItems;*/
 
 
+    /*@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "menu_item_id")
+    private List<SimilarItem> similarItems;*/
+
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinColumn(name = "menu_item_id")
-    private List<SimilarItem> similarItems;
+    private List<SimilarItem> similarItems = new ArrayList<>();
 
 
     /*@ManyToOne(fetch = FetchType.LAZY,
@@ -230,12 +234,21 @@ public class MenuItem {
     }
 
 
+    public void addSimilarItems(List<SimilarItem> similarItems) {
+
+        this.similarItems = similarItems;
+
+        for(SimilarItem similarItem: similarItems){
+            similarItem.setMenuItem(this);
+        }
+    }
     public void addSimilarItem(SimilarItem item){
 
         if(similarItems == null){
             similarItems = new ArrayList<>();
         }
         similarItems.add(item);
+
         item.setMenuItem(this);
     }
 

@@ -68,14 +68,6 @@ public class SimilarItem {
         this.similarMenuItemId = similarMenuItemId;
     }
 
-    /*public int getParentMenuItemId() {
-        return parentMenuItemId;
-    }
-
-    public void setParentMenuItemId(int parentMenuItemId) {
-        this.parentMenuItemId = parentMenuItemId;
-    }*/
-
 
     public void setMenuItem(MenuItem menuItem) {
         this.menuItem = menuItem;

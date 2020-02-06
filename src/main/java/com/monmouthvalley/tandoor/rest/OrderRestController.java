@@ -4,6 +4,7 @@ import com.monmouthvalley.tandoor.entity.Order;
 import com.monmouthvalley.tandoor.entity.OrderDetails;
 import com.monmouthvalley.tandoor.exception.GenericNotFoundException;
 import com.monmouthvalley.tandoor.service.OrderService;
+import com.monmouthvalley.tandoor.shared.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,10 +16,12 @@ import java.util.List;
 public class OrderRestController {
 
     private OrderService orderService;
+    private Utils utils;
 
     @Autowired
-    public OrderRestController(OrderService orderService){
+    public OrderRestController(OrderService orderService, Utils utils){
         this.orderService = orderService;
+        this.utils = utils;
     }
 
     @GetMapping("/orders")
@@ -38,18 +41,23 @@ public class OrderRestController {
     }
 
     @PostMapping("/orders")
-    public Order addCategory(@RequestBody Order order){
+    public Order addOrder(@RequestBody Order order){
 
         if(order == null){
             throw new RuntimeException("invalid order data provided");
         }
+
         order.setId(0);
 
         List<OrderDetails> orderDetails = order.getOrderDetails();
 
         for(OrderDetails details : orderDetails){
+
             details.setOrder(order);
+
+            utils.validateMenuItem(details.getMenuItemId());
         }
+
 
         order.setOrderDate(new Date());
 

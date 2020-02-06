@@ -5,6 +5,7 @@ import com.monmouthvalley.tandoor.dao.SimilarItemRepository;
 import com.monmouthvalley.tandoor.entity.MenuItem;
 import com.monmouthvalley.tandoor.entity.SimilarItem;
 import com.monmouthvalley.tandoor.exception.GenericNotFoundException;
+import com.monmouthvalley.tandoor.shared.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,11 +20,16 @@ public class MenuItemServiceImpl implements MenuItemService {
     private MenuItemRepository menuItemRepository;
     private SimilarItemRepository similarItemRepository;
 
+    private Utils utils;
+
     @Autowired
-    public MenuItemServiceImpl(MenuItemRepository theMenuItemRepository, SimilarItemRepository theSimilarItemRepository){
+    public MenuItemServiceImpl(MenuItemRepository theMenuItemRepository,
+                               SimilarItemRepository theSimilarItemRepository,
+                                Utils utils){
 
         menuItemRepository = theMenuItemRepository;
         similarItemRepository = theSimilarItemRepository;
+        this.utils =  utils;
     }
 
     @Override
@@ -37,7 +43,7 @@ public class MenuItemServiceImpl implements MenuItemService {
 
         //using optional so we don't have to specifically check for null
 
-        MenuItem menuItem = validateMenuItem(id);
+        MenuItem menuItem = utils.validateMenuItem(id);
 
         return menuItem;
     }
@@ -58,7 +64,7 @@ public class MenuItemServiceImpl implements MenuItemService {
 
                 int similarMenuItemId = similarItem.getSimilarMenuItemId();
 
-                validateMenuItem(similarMenuItemId);
+                utils.validateMenuItem(similarMenuItemId);
 
                 //menu item has a list of similar items and
                 //here we are adding each similarItem to this item similarItem's list
@@ -106,7 +112,7 @@ public class MenuItemServiceImpl implements MenuItemService {
         }
     }*/
 
-    private MenuItem validateMenuItem(int menuItemId) {
+    /*public MenuItem validateMenuItem(int menuItemId) {
 
         Optional<MenuItem> result = menuItemRepository.findById(menuItemId);
 
@@ -120,7 +126,7 @@ public class MenuItemServiceImpl implements MenuItemService {
             throw new GenericNotFoundException("No menu item with id " + menuItemId);
         }
         return menuItem;
-    }
+    }*/
 
 
 //    // saving a similar item

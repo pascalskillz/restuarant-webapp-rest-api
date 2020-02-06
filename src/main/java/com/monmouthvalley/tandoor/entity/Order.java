@@ -1,7 +1,7 @@
 package com.monmouthvalley.tandoor.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -14,14 +14,21 @@ public class Order {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "order_number")
-    private String orderNumber;
+    /*@Column(name = "order_number")
+    private String orderNumber;*/
 
-    @Column(name = "created_at")
-    private Date dateCreated;
+    @Column(name = "order_date")
+    private Date orderDate;
 
     @Column(name = "customer_name")
     private String customerName;
+
+    @Column(name = "customer_phone")
+    private String customerPhone;
+
+    @Column(name = "amount")
+    private BigDecimal amount;
+
 
     //delete order details when you delete an order
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
@@ -32,10 +39,10 @@ public class Order {
 
     }
 
-    public Order(String orderNumber, Date dateCreated, String customerName) {
-        this.orderNumber = orderNumber;
-        this.dateCreated = dateCreated;
+    public Order(Date orderDate, String customerName, List<OrderDetails> orderDetails) {
+        this.orderDate = orderDate;
         this.customerName = customerName;
+        this.orderDetails = orderDetails;
     }
 
     public int getId() {
@@ -46,20 +53,20 @@ public class Order {
         this.id = id;
     }
 
-    public String getOrderNumber() {
+   /* public String getOrderNumber() {
         return orderNumber;
     }
 
     public void setOrderNumber(String orderNumber) {
         this.orderNumber = orderNumber;
+    }*/
+
+    public Date getOrderDate() {
+        return orderDate;
     }
 
-    public Date getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
     }
 
     public String getCustomerName() {
@@ -76,6 +83,22 @@ public class Order {
 
     public void setOrderDetails(List<OrderDetails> orderDetails) {
         this.orderDetails = orderDetails;
+    }
+
+    public String getCustomerPhone() {
+        return customerPhone;
+    }
+
+    public void setCustomerPhone(String customerPhone) {
+        this.customerPhone = customerPhone;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 
 /*public void addMenuItem(MenuItem item){

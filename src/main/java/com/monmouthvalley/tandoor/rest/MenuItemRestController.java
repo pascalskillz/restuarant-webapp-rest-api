@@ -3,7 +3,6 @@ package com.monmouthvalley.tandoor.rest;
 
 import com.monmouthvalley.tandoor.entity.Category;
 import com.monmouthvalley.tandoor.entity.MenuItem;
-import com.monmouthvalley.tandoor.entity.SimilarItem;
 import com.monmouthvalley.tandoor.exception.GenericNotFoundException;
 import com.monmouthvalley.tandoor.service.CategoryService;
 import com.monmouthvalley.tandoor.service.MenuItemService;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Date;
 import java.util.List;
 
 @RestController

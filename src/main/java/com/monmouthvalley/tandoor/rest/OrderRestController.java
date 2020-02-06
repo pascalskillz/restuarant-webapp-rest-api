@@ -4,11 +4,9 @@ import com.monmouthvalley.tandoor.entity.Order;
 import com.monmouthvalley.tandoor.exception.GenericNotFoundException;
 import com.monmouthvalley.tandoor.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -27,7 +25,33 @@ public class OrderRestController {
         return  orderService.findAll();
     }
 
-    @GetMapping("/orders/{orderNumber}")
+    @GetMapping("/order/{orderId}")
+    public Order getItem(@PathVariable int orderId) {
+
+        Order order = orderService.findById(orderId);
+
+        if (order == null) {
+            throw new GenericNotFoundException("Item with the id " + orderId + " not found");
+        }
+        return order;
+    }
+
+    @PostMapping("/orders")
+    public Order addCategory(@RequestBody Order order){
+
+        if(order == null){
+            throw new RuntimeException("invalid order data provided");
+        }
+        order.setId(0);
+
+        order.setOrderDate(new Date());
+
+        orderService.save(order);
+
+        return order;
+    }
+
+    /*@GetMapping("/orders/{orderNumber}")
     public Order getOrder(@PathVariable String orderNumber){
 
         Order order  = orderService.findOrderByOrderNumber(orderNumber);
@@ -36,5 +60,5 @@ public class OrderRestController {
             throw new GenericNotFoundException("order with the id " + orderNumber + " not found");
         }
         return order;
-    }
+    }*/
 }

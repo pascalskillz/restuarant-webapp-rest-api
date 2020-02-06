@@ -11,7 +11,7 @@ public interface OrderService {
 
     Order findById(int id);
 
-    Order findOrderByOrderNumber(String orderNumber);
+   /* Order findOrderByOrderNumber(String orderNumber);*/
 
     void save(Order order);
 

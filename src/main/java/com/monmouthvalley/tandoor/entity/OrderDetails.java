@@ -19,6 +19,9 @@ public class OrderDetails {
     @Column(name = "menu_item_id")
     private int menuItemId;
 
+    @Column(name = "menu_item_id", insertable = false, updatable = false)
+    private int orderId;
+
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH,
                     CascadeType.MERGE,
@@ -27,24 +30,24 @@ public class OrderDetails {
     @JoinColumn(name = "order_id")
     private Order order;
 
-    //when you delete order don't delete menuItem
+    /*//when you delete order don't delete menuItem
     @OneToMany(fetch = FetchType.LAZY,
             cascade= {CascadeType.DETACH,
                     CascadeType.MERGE,
                     CascadeType.PERSIST ,
                     CascadeType.REFRESH})
     @JoinColumn(name = "item_name")
-    private List<MenuItem> menuItems;
+    private List<MenuItem> menuItems;*/
 
     public OrderDetails(){
 
     }
 
-    public OrderDetails(int quantity, int menuItemId, Order order, List<MenuItem> menuItems) {
+    public OrderDetails(int quantity, int menuItemId, int orderId, Order order) {
         this.quantity = quantity;
         this.menuItemId = menuItemId;
+        this.orderId = orderId;
         this.order = order;
-        this.menuItems = menuItems;
     }
 
     public int getId() {
@@ -79,11 +82,19 @@ public class OrderDetails {
         this.order = order;
     }
 
-    public List<MenuItem> getMenuItems() {
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrder_id(int orderId) {
+        this.orderId = orderId;
+    }
+
+    /*public List<MenuItem> getMenuItems() {
         return menuItems;
     }
 
     public void setMenuItems(List<MenuItem> menuItems) {
         this.menuItems = menuItems;
-    }
+    }*/
 }

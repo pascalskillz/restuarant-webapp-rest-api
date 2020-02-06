@@ -116,12 +116,9 @@ public class MenuItemServiceImpl implements MenuItemService {
             menuItem = result.get();
         }
         else {
-
             //meunItem not found
             throw new GenericNotFoundException("No menu item with id " + menuItemId);
-
         }
-
         return menuItem;
     }
 

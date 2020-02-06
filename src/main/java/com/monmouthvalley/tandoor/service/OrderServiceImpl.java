@@ -50,7 +50,7 @@ public class OrderServiceImpl implements OrderService{
     }
 
 
-    @Override
+   /* @Override
     public Order findOrderByOrderNumber(String orderNumber){
         //Optional<Order> result = orderRepository.findOrderByOrderNumber(orderNumber);
         //Order order = orderRepository.findOrderByOrderNumber(orderNumber);
@@ -58,11 +58,10 @@ public class OrderServiceImpl implements OrderService{
         //Order order;
 
         return orderRepository.findOrderByOrderNumber(orderNumber);
-    }
+    }*/
 
     @Override
     public void save(Order order) {
-
         orderRepository.save(order);
 
     }

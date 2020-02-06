@@ -101,6 +101,10 @@ public class Order {
         this.amount = amount;
     }
 
+    public void addOrderDetails(OrderDetails orderDetails){
+
+    }
+
 /*public void addMenuItem(MenuItem item){
         if(menuItems == null){
             menuItems = new ArrayList<>();

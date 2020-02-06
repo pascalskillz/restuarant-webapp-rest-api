@@ -1,6 +1,7 @@
 package com.monmouthvalley.tandoor.rest;
 
 import com.monmouthvalley.tandoor.entity.Order;
+import com.monmouthvalley.tandoor.entity.OrderDetails;
 import com.monmouthvalley.tandoor.exception.GenericNotFoundException;
 import com.monmouthvalley.tandoor.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,12 @@ public class OrderRestController {
             throw new RuntimeException("invalid order data provided");
         }
         order.setId(0);
+
+        List<OrderDetails> orderDetails = order.getOrderDetails();
+
+        for(OrderDetails details : orderDetails){
+            details.setOrder(order);
+        }
 
         order.setOrderDate(new Date());
 

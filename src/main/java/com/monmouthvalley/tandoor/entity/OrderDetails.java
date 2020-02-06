@@ -1,5 +1,7 @@
 package com.monmouthvalley.tandoor.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -19,7 +21,7 @@ public class OrderDetails {
     @Column(name = "menu_item_id")
     private int menuItemId;
 
-    @Column(name = "menu_item_id", insertable = false, updatable = false)
+    @Column(name = "order_id", insertable = false, updatable = false)
     private int orderId;
 
     @ManyToOne(fetch = FetchType.LAZY,
@@ -28,6 +30,7 @@ public class OrderDetails {
                     CascadeType.PERSIST ,
                     CascadeType.REFRESH})
     @JoinColumn(name = "order_id")
+    @JsonIgnore
     private Order order;
 
     /*//when you delete order don't delete menuItem
@@ -86,7 +89,7 @@ public class OrderDetails {
         return orderId;
     }
 
-    public void setOrder_id(int orderId) {
+    public void setOrderId(int orderId) {
         this.orderId = orderId;
     }
 

@@ -30,7 +30,7 @@ public class OrderRestController {
     }
 
     @GetMapping("/order/{orderId}")
-    public Order getItem(@PathVariable int orderId) {
+    public Order getOrder(@PathVariable int orderId) {
 
         Order order = orderService.findById(orderId);
 
@@ -41,29 +41,51 @@ public class OrderRestController {
     }
 
     @PostMapping("/orders")
-    public Order addOrder(@RequestBody Order order){
+    public Order createOrder(@RequestBody Order order){
 
         if(order == null){
             throw new RuntimeException("invalid order data provided");
         }
 
+        validateOrder(order);
+
         order.setId(0);
-
-        List<OrderDetails> orderDetails = order.getOrderDetails();
-
-        for(OrderDetails details : orderDetails){
-
-            details.setOrder(order);
-
-            utils.validateMenuItem(details.getMenuItemId());
-        }
-
 
         order.setOrderDate(new Date());
 
         orderService.save(order);
 
         return order;
+    }
+
+
+    @PutMapping("/order")
+    public Order UpdateOrder(@RequestBody Order order){
+
+        if(order == null){
+            throw new RuntimeException("invalid order data provided");
+        }
+
+        validateOrder(order);
+
+        order.setOrderDate(new Date());
+
+        orderService.save(order);
+
+        return order;
+
+    }
+
+    private void validateOrder(Order order) {
+
+        List<OrderDetails> orderDetails = order.getOrderDetails();
+
+        for(OrderDetails details : orderDetails){
+
+            utils.validateMenuItem(details.getMenuItemId());
+
+            details.setOrder(order);
+        }
     }
 
     /*@GetMapping("/orders/{orderNumber}")

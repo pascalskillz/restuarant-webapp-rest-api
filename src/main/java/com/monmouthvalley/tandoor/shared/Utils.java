@@ -14,15 +14,15 @@ import java.util.Random;
 public class Utils {
 
 
+    private final Random RANDOM = new SecureRandom();
+    private final String ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
     private MenuItemRepository menuItemRepository;
 
     @Autowired
     public Utils(MenuItemRepository menuItemRepository){
         this.menuItemRepository = menuItemRepository;
     }
-
-    private final Random RANDOM = new SecureRandom();
-    private final String ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
 
     public String generateId(int length){

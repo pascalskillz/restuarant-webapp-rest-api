@@ -59,8 +59,8 @@ public class OrderRestController {
     }
 
 
-    @PutMapping("/order")
-    public Order UpdateOrder(@RequestBody Order order){
+    @PutMapping("/orders")
+    public Order updateOrder(@RequestBody Order order){
 
         if(order == null){
             throw new RuntimeException("invalid order data provided");
@@ -76,6 +76,23 @@ public class OrderRestController {
 
     }
 
+
+    @DeleteMapping("/orders/{orderId}")
+    public String deleteOrder(@PathVariable int orderId){
+
+        Order order = orderService.findById(orderId);
+
+        if (order == null) {
+            throw new GenericNotFoundException("Order with the id " + orderId + " not found");
+        }
+
+        orderService.deleteById(orderId);
+
+        return "Deleted Order with id " + orderId;
+    }
+
+
+
     private void validateOrder(Order order) {
 
         List<OrderDetails> orderDetails = order.getOrderDetails();
@@ -86,6 +103,8 @@ public class OrderRestController {
 
             details.setOrder(order);
         }
+
+        order.setOrderDetails(orderDetails);
     }
 
     /*@GetMapping("/orders/{orderNumber}")

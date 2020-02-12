@@ -31,7 +31,7 @@ public class Order {
 
 
     //delete order details when you delete an order
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<OrderDetails> orderDetails;
 
 

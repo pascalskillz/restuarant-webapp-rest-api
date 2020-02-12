@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -61,6 +62,8 @@ public class MenuItemRestController {
         //this is to force a save of new item...instead of update
 
         validateAndSetCategory(item, categoryId);
+
+        item.setDateCreated(new Date());
 
         menuItemService.save(item);
 

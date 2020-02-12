@@ -82,8 +82,6 @@ public class MenuItemServiceImpl implements MenuItemService {
 
         //item.setId(0);
 
-        item.setDateCreated(new Date());
-
         menuItemRepository.save(item);
 
     }

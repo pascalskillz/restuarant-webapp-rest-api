@@ -27,7 +27,7 @@ public class OrderDetails {
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH,
                     CascadeType.MERGE,
-                    CascadeType.PERSIST ,
+                    CascadeType.PERSIST,
                     CascadeType.REFRESH})
     @JoinColumn(name = "order_id")
     @JsonIgnore

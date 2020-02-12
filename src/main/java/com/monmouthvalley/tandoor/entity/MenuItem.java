@@ -82,6 +82,9 @@ public class MenuItem {
     @JoinColumn(name = "menu_item_id")
     private List<SimilarItem> similarItems;*/
 
+    //orphanRemoval=true ensures that when a menuitem is updated or deleted
+    //it cascades
+
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = {CascadeType.ALL})
     @JoinColumn(name = "menu_item_id")
     private List<SimilarItem> similarItems = new ArrayList<>();

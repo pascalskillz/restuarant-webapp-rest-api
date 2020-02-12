@@ -82,7 +82,7 @@ public class MenuItem {
     @JoinColumn(name = "menu_item_id")
     private List<SimilarItem> similarItems;*/
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = {CascadeType.ALL})
     @JoinColumn(name = "menu_item_id")
     private List<SimilarItem> similarItems = new ArrayList<>();
 

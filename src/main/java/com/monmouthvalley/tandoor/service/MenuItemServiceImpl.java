@@ -67,15 +67,10 @@ public class MenuItemServiceImpl implements MenuItemService {
                 utils.validateMenuItem(similarMenuItemId);
 
                 //menu item has a list of similar items and
-                //here we are adding each similarItem to this item similarItem's list
-
-                //item.addSimilarItem(similarItem);
-
-                //item.getSimilarItems().add(similarItem);
+                //here we are adding each similarItem to the item's similarItem list
 
                 similarItem.setMenuItem(item);
 
-                //similarItem.setParentMenuItemId(item.getId());
             }
             item.setSimilarItems(similarItems);
         }

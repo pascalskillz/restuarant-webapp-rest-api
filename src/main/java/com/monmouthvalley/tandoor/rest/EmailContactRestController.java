@@ -25,16 +25,17 @@ public class EmailContactRestController {
          * Creating a User with the help of User class that we have declared and setting
          * Email address of the sender.
          */
-        user.setEmailAddress("skillz3305@gmail.com");  //Receiver's email address
+        user.setEmailAddress("mu.tandoori@gmail.com");  //Receiver's email address
 
         /*
          * Here we will call sendEmail() for Sending mail to the sender.
          */
         try {
             mailService.sendEmail(user, email);
+
         } catch (MailException mailException) {
+
             mailException.printStackTrace();
-            //System.out.println(mailException);
         }
         return "Congratulations! Your mail has been send to the user.";
     }

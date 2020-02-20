@@ -53,14 +53,6 @@ public class Order {
         this.id = id;
     }
 
-   /* public String getOrderNumber() {
-        return orderNumber;
-    }
-
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber;
-    }*/
-
     public Date getOrderDate() {
         return orderDate;
     }

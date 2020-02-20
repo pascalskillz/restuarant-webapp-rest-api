@@ -35,7 +35,6 @@ public class MenuItemRestController {
 
     }
 
-    // expose api/menuitems and get all menu items
     @GetMapping("/menuitems")
     public List<MenuItem> findAll() {
         return menuItemService.findAll();
@@ -53,8 +52,6 @@ public class MenuItemRestController {
         return item;
     }
 
-    //error because parentMenuItemId is this new menuItem and it's not yet initialized
-    //
 
     @PostMapping("/menuitems")
     public MenuItem addItem(@Valid @RequestBody MenuItem item, @RequestParam int categoryId) {
@@ -67,7 +64,6 @@ public class MenuItemRestController {
 
         menuItemService.save(item);
 
-        //similarItem.setParentMenuItemId(item.getId());
 
         return item;
 

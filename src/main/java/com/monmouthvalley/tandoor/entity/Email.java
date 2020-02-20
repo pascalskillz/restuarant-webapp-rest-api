@@ -9,6 +9,8 @@ public class Email {
 
     private String emailBody;
 
+    private String emailAddress;
+
     private String customerName;
 
 
@@ -34,5 +36,12 @@ public class Email {
 
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+    public void setEmailAddress(String emailAddress){
+        this.emailAddress = emailAddress;
     }
 }

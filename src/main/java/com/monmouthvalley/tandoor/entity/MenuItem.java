@@ -83,7 +83,7 @@ public class MenuItem {
     private List<SimilarItem> similarItems;*/
 
     //orphanRemoval=true ensures that when a menuitem is updated or deleted
-    //it cascades
+    //it cascades to the database
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = {CascadeType.ALL})
     @JoinColumn(name = "menu_item_id")

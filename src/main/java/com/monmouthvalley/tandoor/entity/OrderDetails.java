@@ -33,14 +33,6 @@ public class OrderDetails {
     @JsonIgnore
     private Order order;
 
-    /*//when you delete order don't delete menuItem
-    @OneToMany(fetch = FetchType.LAZY,
-            cascade= {CascadeType.DETACH,
-                    CascadeType.MERGE,
-                    CascadeType.PERSIST ,
-                    CascadeType.REFRESH})
-    @JoinColumn(name = "item_name")
-    private List<MenuItem> menuItems;*/
 
     public OrderDetails(){
 
@@ -93,11 +85,4 @@ public class OrderDetails {
         this.orderId = orderId;
     }
 
-    /*public List<MenuItem> getMenuItems() {
-        return menuItems;
-    }
-
-    public void setMenuItems(List<MenuItem> menuItems) {
-        this.menuItems = menuItems;
-    }*/
 }

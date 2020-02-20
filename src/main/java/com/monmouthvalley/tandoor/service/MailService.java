@@ -40,7 +40,7 @@ public class MailService {
      * @throws MailException
      */
 
-    public void sendEmail(User user, Email email) throws MailException {
+    public void sendEmail(User user, Email email) throws MailException, MessagingException {
         /*
          * This JavaMailSender Interface is used to send Mail in Spring Boot. This
          * JavaMailSender extends the MailSender Interface which contains send()
@@ -48,15 +48,27 @@ public class MailService {
          * object of SimpleMailMessage as a Parameter
          */
 
-        SimpleMailMessage mail = new SimpleMailMessage();
-        mail.setTo(user.getEmailAddress());
+       // SimpleMailMessage mail = new SimpleMailMessage();
+
+        MimeMessage message = javaMailSender.createMimeMessage();
+
+        MimeMessageHelper messageHelper = new MimeMessageHelper(message, true);
+
+        messageHelper.setTo(user.getEmailAddress());
+        messageHelper.setSubject("New Message from " + email.getCustomerName());
+        messageHelper.setText(email.getEmailBody(), true);
+        messageHelper.setReplyTo(email.getEmailAddress());
+
+        javaMailSender.send(message);
+
+        /*mail.setTo(user.getEmailAddress());
         mail.setSubject(email.getEmailSubject());
-        mail.setText(email.getEmailBodyHtml());
-        mail.setReplyTo(email.getEmailAddress());
+        mail.setText(email.getEmailBody());
+        mail.setReplyTo(email.getEmailAddress());*/
         /*
          * This send() contains an Object of SimpleMailMessage as an Parameter
          */
-        javaMailSender.send(mail);
+        //javaMailSender.send(mail);
     }
 
 

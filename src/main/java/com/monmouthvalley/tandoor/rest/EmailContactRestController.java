@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
+
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = {"http://localhost:3000", "https://tandoor.netlify.com", "http://tandoor.s3-website-us-east-1.amazonaws.com"})
@@ -33,7 +35,7 @@ public class EmailContactRestController {
         try {
             mailService.sendEmail(user, email);
 
-        } catch (MailException mailException) {
+        } catch (MailException | MessagingException mailException) {
 
             mailException.printStackTrace();
         }

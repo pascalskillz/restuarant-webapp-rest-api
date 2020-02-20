@@ -15,10 +15,8 @@ public class Email {
 
     private String customerPhoneNumber;
 
-    private String htmlEmailBody = "<h1>Customer Name: $customerName </h1>" +
-            "<p><strong>Message:</strong> $messageBody </p> <br>" +
-            "<p>Phone number: $customerPhoneNumber";
-
+   /* private String htmlEmailBody = "<h1>Customer Name: $customerName </h1><p>Message: $messageBody </p>" +
+            "<p>Phone number: $customerPhoneNumber </p>";*/
 
     public String getEmailSubject() {
         return emailSubject;
@@ -29,7 +27,12 @@ public class Email {
     }
 
     public String getEmailBody() {
-        return emailBody;
+
+        return "<html><body>"
+                + "<h4>Customer Name: " + this.customerName + " </h4>"
+                + "<p>" + this.emailBody + "</p>"
+                + "<p>Phone Number: " + this.customerPhoneNumber + "</p>"
+                + "</body></html>";
     }
 
     public void setEmailBody(String emailBody) {
@@ -59,7 +62,7 @@ public class Email {
         this.customerPhoneNumber = customerPhoneNumber;
     }
 
-    public String getEmailBodyHtml(){
+    /*public String getEmailBodyHtml(){
 
         String[] str = htmlEmailBody.split(" ");
         StringBuilder sb = new StringBuilder();
@@ -70,16 +73,16 @@ public class Email {
                 sb.append(str[i]);
             }
             else if(str[i].equals("$customerName")) {
-                sb.append(getCustomerName());
+                sb.append(this.getCustomerName());
             }
             else if(str[i].equals("$messageBody")){
-                sb.append(getEmailBody());
+                sb.append(this.getEmailBody());
             }
             else {
-                sb.append(getCustomerPhoneNumber());
+                sb.append(this.getCustomerPhoneNumber());
             }
         }
 
         return sb.toString();
-    }
+    }*/
 }

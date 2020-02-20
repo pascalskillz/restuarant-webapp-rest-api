@@ -51,7 +51,7 @@ public class MailService {
         SimpleMailMessage mail = new SimpleMailMessage();
         mail.setTo(user.getEmailAddress());
         mail.setSubject(email.getEmailSubject());
-        mail.setText(email.getEmailBody());
+        mail.setText(email.getEmailBodyHtml());
         mail.setReplyTo(email.getEmailAddress());
         /*
          * This send() contains an Object of SimpleMailMessage as an Parameter

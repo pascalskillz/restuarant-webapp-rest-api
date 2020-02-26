@@ -9,6 +9,7 @@ import com.monmouthvalley.tandoor.service.MenuItemService;
 import com.monmouthvalley.tandoor.shared.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -36,8 +37,9 @@ public class MenuItemRestController {
     }
 
     @GetMapping("/menuitems")
-    public List<MenuItem> findAll() {
-        return menuItemService.findAll();
+    public Page<MenuItem> findAll(@RequestParam int page, @RequestParam int size) {
+        if(page > 0) page -= 1; //make page index to start from 1;
+        return menuItemService.findAll(page, size);
     }
 
     @GetMapping("/menuitems/{itemId}")

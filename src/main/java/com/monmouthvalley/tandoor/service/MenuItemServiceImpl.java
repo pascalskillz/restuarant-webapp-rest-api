@@ -7,6 +7,9 @@ import com.monmouthvalley.tandoor.entity.SimilarItem;
 import com.monmouthvalley.tandoor.exception.GenericNotFoundException;
 import com.monmouthvalley.tandoor.shared.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,24 +21,22 @@ import java.util.Optional;
 public class MenuItemServiceImpl implements MenuItemService {
 
     private MenuItemRepository menuItemRepository;
-    private SimilarItemRepository similarItemRepository;
 
     private Utils utils;
 
     @Autowired
-    public MenuItemServiceImpl(MenuItemRepository theMenuItemRepository,
-                               SimilarItemRepository theSimilarItemRepository,
-                                Utils utils){
+    public MenuItemServiceImpl(MenuItemRepository theMenuItemRepository, Utils utils){
 
         menuItemRepository = theMenuItemRepository;
-        similarItemRepository = theSimilarItemRepository;
         this.utils =  utils;
     }
 
     @Override
-    public List<MenuItem> findAll() {
+    public Page<MenuItem> findAll(int page, int size) {
 
-        return menuItemRepository.findAll();
+        Pageable pageableRequest = PageRequest.of(page, size);
+
+        return menuItemRepository.findAll(pageableRequest);
     }
 
     @Override

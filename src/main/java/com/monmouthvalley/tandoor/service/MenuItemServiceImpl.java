@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -32,11 +34,16 @@ public class MenuItemServiceImpl implements MenuItemService {
     }
 
     @Override
-    public Page<MenuItem> findAll(int page, int size) {
+    public List<MenuItem> findAll(int page, int limit) {
 
-        Pageable pageableRequest = PageRequest.of(page, size);
+        Pageable pageableRequest = PageRequest.of(page, limit);
 
-        return menuItemRepository.findAll(pageableRequest);
+        Slice<MenuItem> paging = menuItemRepository.findAll(pageableRequest);
+
+        if(!paging.hasContent()){
+            return new ArrayList<MenuItem>();
+        }
+        return paging.getContent();
     }
 
     @Override

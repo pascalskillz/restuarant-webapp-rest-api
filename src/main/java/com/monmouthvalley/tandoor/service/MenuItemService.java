@@ -9,7 +9,9 @@ import java.util.List;
 
 public interface MenuItemService {
 
-    Page<MenuItem> findAll(int page, int size);
+    //Page<MenuItem> findAll(int page, int size);
+
+    List<MenuItem> findAll(int page, int limit);
 
     MenuItem findById(int id);
 
@@ -17,9 +19,9 @@ public interface MenuItemService {
 //    @Query("select item from MenuItem u where u.emailAddress = ?1")
 //    public MenuItem findByName(String name);
 
-    public void save(MenuItem menuItem);
+    void save(MenuItem menuItem);
 
-    public void deleteById(int id);
+    void deleteById(int id);
 
     /*public void save(SimilarItem similarItem);*/
 

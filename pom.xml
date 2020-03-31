@@ -35,7 +35,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-websocket</artifactId>
+			<artifactId>spring-boot-starter-web
+				socket</artifactId>
 		</dependency>
 
 		<dependency>

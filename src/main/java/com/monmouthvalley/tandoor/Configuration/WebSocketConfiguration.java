@@ -15,7 +15,7 @@ public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer 
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         //clients will connect through this "/sockets endpoint
             registry.addEndpoint("/sockets")
-                    .setAllowedOrigins("*")
+                    .setAllowedOrigins("http://localhost:3000", "https://tandoor.netlify.com", "http://tandoor.s3-website-us-east-1.amazonaws.com")
                     .withSockJS();
     }
 

@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface OrderService {
 
-    List<Order> findAll();
+    List<Order> findAll(int page, int limit);
 
     Order findById(int id);
 

@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = {"http://localhost:3000", "https://tandoor.netlify.com", "http://tandoor.s3-website-us-east-1.amazonaws.com"})
 public class OrderRestController {
 
     private OrderService orderService;
@@ -25,8 +26,10 @@ public class OrderRestController {
     }
 
     @GetMapping("/orders")
-    public List<Order> findAll(){
-        return  orderService.findAll();
+    public List<Order> findAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "20")  int limit){
+        if(page > 0) page -= 1; //make page index to start from 1;
+
+        return  orderService.findAll(page, limit);
     }
 
     @GetMapping("/order/{orderId}")

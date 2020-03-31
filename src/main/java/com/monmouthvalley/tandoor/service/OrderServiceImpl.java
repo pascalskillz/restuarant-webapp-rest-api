@@ -4,8 +4,13 @@ import com.monmouthvalley.tandoor.dao.OrderRepository;
 import com.monmouthvalley.tandoor.entity.Order;
 import com.monmouthvalley.tandoor.exception.GenericNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,8 +27,16 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public List<Order> findAll() {
-        return orderRepository.findAll();
+    public List<Order> findAll(int page, int limit) {
+
+        Pageable pageableRequest = PageRequest.of(page, limit, Sort.by("orderDate").descending());
+
+        Slice<Order> paging = orderRepository.findAll(pageableRequest);
+
+        if(!paging.hasContent()){
+            return new ArrayList<>();
+        }
+        return paging.getContent();
     }
 
     /*@Override

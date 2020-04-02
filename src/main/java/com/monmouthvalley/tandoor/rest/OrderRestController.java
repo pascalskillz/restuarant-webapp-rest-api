@@ -26,7 +26,7 @@ public class OrderRestController {
     }
 
     @GetMapping("/orders")
-    public List<Order> findAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "20")  int limit){
+    public List<Order> findAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10")  int limit){
         if(page > 0) page -= 1; //make page index to start from 1;
 
         return  orderService.findAll(page, limit);

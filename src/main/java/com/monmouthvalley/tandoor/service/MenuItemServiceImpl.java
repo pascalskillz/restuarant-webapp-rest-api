@@ -34,16 +34,16 @@ public class MenuItemServiceImpl implements MenuItemService {
     }
 
     @Override
-    public List<MenuItem> findAll(int page, int limit) {
+    public Page<MenuItem> findAll(int page, int limit) {
 
         Pageable pageableRequest = PageRequest.of(page, limit);
 
-        Slice<MenuItem> paging = menuItemRepository.findAll(pageableRequest);
+        Page<MenuItem> paging = menuItemRepository.findAll(pageableRequest);
 
-        if(!paging.hasContent()){
-            return new ArrayList<MenuItem>();
-        }
-        return paging.getContent();
+//        if(!paging.hasContent()){
+//            return new ArrayList<MenuItem>();
+//        }
+        return paging;
     }
 
     @Override

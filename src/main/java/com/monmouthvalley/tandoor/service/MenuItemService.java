@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface MenuItemService {
 
-    //Page<MenuItem> findAll(int page, int size);
+    Page<MenuItem> findAll(int page, int size);
 
-    List<MenuItem> findAll(int page, int limit);
+    //List<MenuItem> findAll(int page, int limit);
 
     MenuItem findById(int id);
 

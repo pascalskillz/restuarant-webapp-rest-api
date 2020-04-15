@@ -6,6 +6,7 @@ import com.monmouthvalley.tandoor.exception.GenericNotFoundException;
 import com.monmouthvalley.tandoor.service.OrderService;
 import com.monmouthvalley.tandoor.shared.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -26,13 +27,13 @@ public class OrderRestController {
     }
 
     @GetMapping("/orders")
-    public List<Order> findAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10")  int limit){
+    public Page<Order> findAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10")  int limit){
         if(page > 0) page -= 1; //make page index to start from 1;
 
         return  orderService.findAll(page, limit);
     }
 
-    @GetMapping("/order/{orderId}")
+    @GetMapping("/orders/{orderId}")
     public Order getOrder(@PathVariable int orderId) {
 
         Order order = orderService.findById(orderId);

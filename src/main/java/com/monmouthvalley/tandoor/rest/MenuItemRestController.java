@@ -37,7 +37,7 @@ public class MenuItemRestController {
     }
 
     @GetMapping("/menuitems")
-    public List<MenuItem> findAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "20")  int limit) {
+    public Page<MenuItem> findAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "20")  int limit) {
         if(page > 0) page -= 1; //make page index to start from 1;
 
         return menuItemService.findAll(page, limit);

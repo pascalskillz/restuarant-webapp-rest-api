@@ -1,8 +1,12 @@
 package com.monmouthvalley.tandoor.rest;
 
 import com.monmouthvalley.tandoor.entity.Category;
+import com.monmouthvalley.tandoor.entity.MenuItem;
 import com.monmouthvalley.tandoor.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -53,4 +57,20 @@ public class CategoryRestController {
         return category;
     }
 
+    @GetMapping("/categories/{categoryId}/menuitems")
+    public Page<MenuItem> getCategoryMenuItems(@PathVariable int categoryId, Pageable pageable) {
+
+        Category category = categoryService.findById(categoryId);
+
+        if(category == null){
+            throw new RuntimeException("No category found with the id " + categoryId);
+        }
+        List<MenuItem> menuItems = category.getMenuItems();
+
+        int start = (int) pageable.getOffset();
+        int end = (start + pageable.getPageSize()) > menuItems.size() ? menuItems.size() : (start + pageable.getPageSize());
+        Page<MenuItem> pages = new PageImpl<MenuItem>(menuItems.subList(start, end), pageable, menuItems.size());
+
+        return pages;
+    }
 }

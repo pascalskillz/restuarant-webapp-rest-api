@@ -68,8 +68,9 @@ public class CategoryRestController {
         List<MenuItem> menuItems = category.getMenuItems();
 
         int start = (int) pageable.getOffset();
+
         int end = (start + pageable.getPageSize()) > menuItems.size() ? menuItems.size() : (start + pageable.getPageSize());
-        Page<MenuItem> pages = new PageImpl<MenuItem>(menuItems.subList(start, end), pageable, menuItems.size());
+        Page<MenuItem> pages = new PageImpl<>(menuItems.subList(start, end), pageable, menuItems.size());
 
         return pages;
     }

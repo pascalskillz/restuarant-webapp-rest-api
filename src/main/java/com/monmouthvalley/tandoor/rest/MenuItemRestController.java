@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Date;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -71,6 +70,45 @@ public class MenuItemRestController {
         return item;
 
     }
+    @PutMapping("/menuitems")
+    public MenuItem updateItem(@RequestBody MenuItem item, @RequestParam int categoryId) {
+
+        validateAndSetCategory(item, categoryId);
+
+        menuItemService.save(item);
+
+        return item;
+    }
+
+    @DeleteMapping("/menuitems/{itemId}")
+    public String deleteItem(@PathVariable int itemId) {
+
+        MenuItem item = menuItemService.findById(itemId);
+
+        if (item == null) {
+            throw new GenericNotFoundException("Item with the id " + itemId + " not found");
+        }
+
+        menuItemService.deleteById(itemId);
+
+        return "Deleted MenuItem with id " + itemId;
+    }
+
+
+    private void validateAndSetCategory(MenuItem item, int categoryId){
+
+        Category category = categoryService.findById(categoryId);
+
+        if (category == null) {
+            throw new GenericNotFoundException("No category found with the id " + categoryId);
+        }
+
+        item.setCategory(category);
+
+        category.addMenuItem(item);
+
+    }
+
 
     // Saving with categoryService returns menuitem with id of 0 in the json response
     //but the correct value is entered in the database
@@ -182,44 +220,6 @@ public class MenuItemRestController {
         return menuItemService.findSimilarItem(similarMenuItemId, parentItemId);
     }*/
 
-    @PutMapping("/menuitems")
-    public MenuItem updateItem(@RequestBody MenuItem item, @RequestParam int categoryId) {
-
-        validateAndSetCategory(item, categoryId);
-
-        menuItemService.save(item);
-
-        return item;
-    }
-
-    @DeleteMapping("/menuitems/{itemId}")
-    public String deleteItem(@PathVariable int itemId) {
-
-        MenuItem item = menuItemService.findById(itemId);
-
-        if (item == null) {
-            throw new GenericNotFoundException("Item with the id " + itemId + " not found");
-        }
-
-        menuItemService.deleteById(itemId);
-
-        return "Deleted MenuItem with id " + itemId;
-    }
-
-
-    private void validateAndSetCategory(MenuItem item, int categoryId){
-
-        Category category = categoryService.findById(categoryId);
-
-        if (category == null) {
-            throw new GenericNotFoundException("No category found with the id " + categoryId);
-        }
-
-        item.setCategory(category);
-
-        category.addMenuItem(item);
-
-    }
 
 }
 
